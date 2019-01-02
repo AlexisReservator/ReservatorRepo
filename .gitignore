@@ -1,0 +1,7 @@
+.gradle/
+.idea/
+.metadata/
+build/
+demo/
+gradle/
+out/
