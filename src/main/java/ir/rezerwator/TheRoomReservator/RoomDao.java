@@ -40,7 +40,7 @@ public class RoomDao implements RoomDaoInterface {
     public Optional<Room> read(int id) {
         return rooms.stream()
                 .filter(room -> room.getId() ==id)
-                .findFirst();
+                .findAny();
     }
 
     @Override

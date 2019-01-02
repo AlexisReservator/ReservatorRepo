@@ -14,6 +14,7 @@ public class RoomRestController {
 
     private final RoomDaoInterface roomDao;
     private final OrganizationDaoInterface organizationDao;
+
     @Autowired
     public RoomRestController(RoomDaoInterface roomDao, OrganizationDaoInterface organizationDao){
         this.roomDao = roomDao;
@@ -69,12 +70,12 @@ public class RoomRestController {
             throw new NotFoundException(
                     String.format("The room under non-existing organization doesn't exist."));
         }
-        Optional<Room> rooms=roomDao.read(idOrganization);
-        if (rooms.get().getIdOrganization() != idOrganization) {
+        Optional<Room> rooms=roomDao.read(id);
+        if (rooms.isPresent() && rooms.get().getIdOrganization() != idOrganization) {
             throw new OtherException("The room under this organization doesn't exist.");
         }
         room.setId(id);
-        return rooms.get();
+        return roomDao.update(room, idOrganization);
     }
 
     @DeleteMapping("/{roomId}")

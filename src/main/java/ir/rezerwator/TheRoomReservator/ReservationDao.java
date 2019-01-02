@@ -23,15 +23,17 @@ public class ReservationDao implements ReservationDaoInterface {
     private int currentId =3;
 
     @Override
-    public Reservation create(Reservation newReservation, int roomId) {
+    public Reservation create(Reservation newReservation, int id, int roomId) {
         List<Reservation> collidingReservations = reservations.stream()
             .filter(r -> r.getRoomId() == roomId)
-            .filter(r -> !(r.getStartDate().getTime() >= newReservation.getEndDate().getTime()) ||
-                    r.getEndDate().getTime() <= newReservation.getStartDate().getTime())
+            .filter(r -> (r.getStartDate().getTime() > newReservation.getEndDate().getTime() &&
+                    r.getEndDate().getTime() < newReservation.getStartDate().getTime()) ||
+                    (r.getStartDate().getTime() < newReservation.getEndDate().getTime() &&
+                    r.getEndDate().getTime() > newReservation.getStartDate().getTime()))
             .collect(Collectors.toList());
         if (!collidingReservations.isEmpty()) {
             throw new AlreadyExistsException(
-                    String.format("room with chosen date is already booked; choose different date; Colliding reservations: %s",
+                    String.format("The room with chosen date is already booked. Choose different date. Colliding reservations: %s",
                             collidingReservations.toString())
             );
         }
@@ -65,7 +67,7 @@ public class ReservationDao implements ReservationDaoInterface {
         }
         List<Reservation> collidingReservations = reservations.stream()
                 .filter(r -> r.getRoomId() == reservation.getRoomId())
-                .filter(r -> !(r.getStartDate().getTime() >= reservation.getEndDate().getTime()) ||
+                .filter(r -> r.getStartDate().getTime() >= reservation.getEndDate().getTime() ||
                         r.getEndDate().getTime() <= reservation.getStartDate().getTime())
                 .collect(Collectors.toList());
         if (!collidingReservations.isEmpty()) {

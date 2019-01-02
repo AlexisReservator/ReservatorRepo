@@ -12,14 +12,16 @@ import java.util.Optional;
 public class ReservationRestController {
     private final ReservationDaoInterface reservationDao;
     private final RoomDaoInterface roomDao;
+    private final OrganizationDaoInterface organizationDao;
     @Autowired
-    public ReservationRestController(ReservationDaoInterface reservationDao, RoomDaoInterface roomDao){
+    public ReservationRestController(ReservationDaoInterface reservationDao, RoomDaoInterface roomDao, OrganizationDaoInterface organizationDao){
         this.reservationDao=reservationDao;
         this.roomDao=roomDao;
+        this.organizationDao=organizationDao;
     }
 
     @PostMapping
-    public Reservation createReservation (@Valid @RequestBody Reservation reservation, @PathVariable("roomId") int roomId) {
+    public Reservation createReservation (@Valid @RequestBody Reservation reservation, @PathVariable("id") int id, @PathVariable("roomId") int roomId) {
         Optional<Room> room=roomDao.read(roomId);
         if (!room.isPresent()) {
             throw new NotFoundException(
@@ -28,7 +30,12 @@ public class ReservationRestController {
         if (reservation.getStartDate().getTime() > reservation.getEndDate().getTime()) {
             throw new OtherException("Incorrect dates format. End date can't be earlier than start date.");
         }
-        return reservationDao.create(reservation, roomId);
+        Optional<Organization> organization=organizationDao.read(id);
+        if (!organization.isPresent()) {
+            throw new NotFoundException(
+                    String.format("The reservation can't be created in a non-existing organization."));
+        }
+        return reservationDao.create(reservation, id, roomId);
     }
 
     @GetMapping("/{reservationId}")
