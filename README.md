@@ -16,7 +16,7 @@ Using DELETE request with an ID  (http://localhost:8080/organization/1)  will de
 
 Similar requests are respectfully made for room and reservation, with appropriate exceptions.
 
-HOW TO BUILD APPLICATION:
+</br>HOW TO BUILD APPLICATION:
 
 Prerequirements:
 1. Gradle installed (4.4+)
