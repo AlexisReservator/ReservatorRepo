@@ -144,7 +144,7 @@ curl -X POST http://localhost:8080/organization/2/room/2/reservation -H 'Content
 - if room (id) is not present it throws NotFoundException: "The reservation can't be created in a non-existing room.";
 - if organization (id) is not present it throws NotFoundException: "The reservation can't be created in a non-existing organization.";
 
-READ RESERVATION
+READ RESERVATION BY ID
 
 curl -X GET http://localhost:8080/organization/1/room/1/reservation/1
 
