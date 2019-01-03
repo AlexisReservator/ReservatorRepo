@@ -1,4 +1,3 @@
-# ReservatorRepo
 -----Description This application has been designed as apprenticeship task. It launches REST service to record organizations, rooms at wanted organization and reservations booking under wanted room and organization. 
 It uses Spring Boot framework and is built with Gradle.
 
@@ -27,40 +26,48 @@ Prerequirements:
 5. Execute command: gradle build
 
 HOW TO RUN APPLICATION:
+
 6. Start java application using the following command: java -jar build/libs/TheRoomReservator-0.0.1-SNAPSHOT.jar
 7. Application starts at port 8080 in case of problems with port close already running process on this port
 
 
 COMPLETE OF CURL COMMANDS FOR ORGANIZATION, ROOM, RESERVATION;
 
+
 CREATE ORGANIZATION
+
 curl -X POST http://localhost:8080/organization/ -H 'Content-Type: application/json' -d '{"name": "OrganizacjaX"}'
 
 - if organization(name) is already present it throws AlreadyExistsException: "Organization with name %s already exists.";
 
 READ ORGANIZATION BY ID
+
 curl -X GET  http://localhost:8080/organization/3
 
 - if organization (id) is not present it throws NotFoundException: "Organization with this id does not exist.";
 
 READ ALL ORGANIZATIONS
+
 curl -X GET http://localhost:8080/organization
 
 - reads all organizations;
 
 UPDATE ORGANIZATION
+
 curl -X PUT http://localhost:8080/organization/3 -H 'Content-Type: application/json' -d'{"name":"Stocznia Szczecin2"}'
 
 - if organization (id) is not present it throws NotFoundException: "Organization with id %d does not exist.";
 - if organization(name) is already present it throws AlreadyExistsException: "Organization with name %s already exists.";
 
 DELETE ORGANIZATION
+
 curl -X DELETE http://localhost:8080/organization/3
 
 - if organization(with this id) is not present it throws NotFoundException: "Organization with id %d does not exist.";
 - if organization was deleted it gives Message: "The organization was successfully deleted.";
 
 CREATE ROOM
+
 curl -X POST http://localhost:8080/organization/2/room -H 'Content-Type: application/json' -d '{
 	"name": "PokojX",
 	"floor": "7",
@@ -75,6 +82,7 @@ curl -X POST http://localhost:8080/organization/2/room -H 'Content-Type: applica
 - if room(name) is already present it throws AlreadyExistsException: "Room with name %s already exists.";
 
 READ ROOM BY ID
+
 curl -X GET http://localhost:8080/organization/2/room/4
 
 - if organization(id) is not present it throws NotFoundException: "The room under non-existing organization doesn't exist.";
@@ -82,12 +90,14 @@ curl -X GET http://localhost:8080/organization/2/room/4
 - if the room under given organization (id) is not present it throws OtherException: "The room under this organization doesn't exist.;
 
 READ ALL ROOMS
+
 curl -X GET http://localhost:8080/organization/2/room
 
 - if organization(id) is not present it throws: "There are no rooms under non-existing organization.";
 - if room under given organization (id) is not present it throws - OtherException: "There are no rooms under this organization.";
 
 UPDATE ROOM
+
 curl -X PUT http://localhost:8080/organization/2/room/2 -H 'Content-Type: application/json' -d '{ 
 	"name": "PokojY",
 	"floor": "5",
@@ -104,6 +114,7 @@ curl -X PUT http://localhost:8080/organization/2/room/2 -H 'Content-Type: applic
 - if room under given organization (id) is not present it throws - OtherException: "There are no rooms under this organization. So it can't be updated.";
 
 DELETE ROOM
+
 curl -X DELETE http://localhost:8080/organization/2/room/4
 
 - if room (id) is not present it throws NotFoundException: "Room with id %d does not exist.";
@@ -112,6 +123,7 @@ curl -X DELETE http://localhost:8080/organization/2/room/4
 - if room was deleted it gives Message: "The room was successfully deleted."; 
 
 CREATE RESERVATION
+
 curl -X POST http://localhost:8080/organization/2/room/2/reservation -H 'Content-Type: application/json' -d '{
 	"name": "Organizacja2",
 	"userId": "ZosiaK",
@@ -125,6 +137,7 @@ curl -X POST http://localhost:8080/organization/2/room/2/reservation -H 'Content
 - if organization (id) is not present it throws NotFoundException: "The reservation can't be created in a non-existing organization.";
 
 READ RESERVATION
+
 curl -X GET http://localhost:8080/organization/1/room/1/reservation/1
 
 - if there is no such room, no such organization and no such reservation it throws OtherException: "There is no such reservation, no such room and no such organization.";
@@ -134,6 +147,7 @@ curl -X GET http://localhost:8080/organization/1/room/1/reservation/1
 - if there is no such reservation: "Reservation with id %d does not exist. So it can't be updated.";
 
 READ ALL RESERVATIONS
+
 curl -X GET http://localhost:8080/organization/1/room/1/reservation
 
 - if there is no such room and no such organization it throws OtherException: "There is no reservation under non-existing room and non-existing organization.";
@@ -142,6 +156,7 @@ curl -X GET http://localhost:8080/organization/1/room/1/reservation
 - if there is any reservations it throws NotFoundException: "There is no reservations under this room.";
 
 UPDATE RESERVATION
+
 curl -X PUT http://localhost:8080/organization/1/room/2/reservation/2 -H 'Content-Type: application/json' -d '{
 	"userId": "Ale",
 	"startDate": "2019-01-11 16:00 UTC",
@@ -156,6 +171,7 @@ curl -X PUT http://localhost:8080/organization/1/room/2/reservation/2 -H 'Conten
 - if there is no such reservation it throws NotFoundException: "Reservation with id %d does not exist.";
 
 DELETE RESERVATION
+
 curl -X DELETE http://localhost:8080/organization/1/room/1/reservation/1
 
 - if there is no such room, no such organization and no such reservation it throws OtherException: "The non-existing reservation at non-existing room and non-existing organization can't be deleted.";
