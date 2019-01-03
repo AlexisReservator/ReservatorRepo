@@ -24,7 +24,7 @@ Prerequirements:
 2. Git installed
 3. Java 8 installed (I was using JDK 1.8.0_191)
 
-1. Open command line or git console 
+</br>1. Open command line or git console 
 2. Go to folder on disk, let's say: C:\patronage
 3. Execute command: git clone https://github.com/AlexisReservator/ReservatorRepo.git 
 - a folder with project should have been created C:\patronage\ReservatorRepo
