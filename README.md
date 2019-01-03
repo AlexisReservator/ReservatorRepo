@@ -2,7 +2,7 @@
 
 It uses Spring Boot framework and is built with Gradle.
 
-Launching application creates endpoint for REST service at http://localhost:8080/organization/ At the start 2 organizations will be created to populate "database", all organizations are kept in app, there is no database at this point. 
+</br>Launching application creates endpoint for REST service at http://localhost:8080/organization/ At the start 2 organizations will be created to populate "database", all organizations are kept in app, there is no database at this point. 
 
 Using POST request with body in JSON format will result in creating new organization if the organization name is not colliding (with existing ones). 
 
@@ -27,7 +27,7 @@ Prerequirements:
 </br>1. Open command line or git console 
 </br>2. Go to folder on disk, let's say: C:\patronage
 </br>3. Execute command: git clone https://github.com/AlexisReservator/ReservatorRepo.git 
-- a folder with project should have been created C:\patronage\ReservatorRepo
+</br>- a folder with project should have been created C:\patronage\ReservatorRepo
 </br>4. Go to the created ReservatorRepo folder
 </br>5. Execute command: gradle build
 
