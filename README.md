@@ -31,6 +31,8 @@ HOW TO RUN APPLICATION:
 7. Application starts at port 8080 in case of problems with port close already running process on this port
 
 
+
+
 COMPLETE OF CURL COMMANDS FOR ORGANIZATION, ROOM, RESERVATION;
 
 
