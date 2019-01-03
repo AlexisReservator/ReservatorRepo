@@ -86,9 +86,6 @@ public class RoomRestController {
                     String.format("The room under non-existing organization can't be deleted."));
         }
         Optional<Room> room=roomDao.read(id);
-        if (!room.isPresent()) {
-            throw new NotFoundException("Room with this id doesn't exist.");
-        }
         if (room.get().getIdOrganization() != idOrganization) {
             throw new OtherException("The room under this organization doesn't exist.");
         }

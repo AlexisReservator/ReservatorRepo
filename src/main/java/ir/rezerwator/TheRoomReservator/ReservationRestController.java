@@ -39,10 +39,26 @@ public class ReservationRestController {
     }
 
     @GetMapping("/{reservationId}")
-    public Reservation readId(@PathVariable("reservationId") int id){
+    public Reservation readId(@PathVariable("reservationId") int id, @PathVariable("roomId") int roomId, @PathVariable("id") int idOrganization){
+        Optional<Organization> organization=organizationDao.read(idOrganization);
+        Optional<Room> room=roomDao.read(roomId);
         Optional<Reservation> reservation = reservationDao.read(id);
+        if (!room.isPresent() && !organization.isPresent() && !reservation.isPresent()) {
+            throw new OtherException("There is no such reservation, no such room and no such organization.");
+        }
+        if (!room.isPresent() && !organization.isPresent()) {
+            throw new OtherException("There is no reservation under non-existing room and non-existing organization.");
+        }
+        if (!organization.isPresent()) {
+            throw new NotFoundException(
+                    String.format("There is no reservation in a non-existing organization."));
+        }
+        if (!room.isPresent()) {
+            throw new NotFoundException(
+                    String.format("There is no reservation in a non-existing room."));
+        }
         if(!reservation.isPresent()) {
-            throw new OtherException("Reservation with this id does not exist.");
+            throw new OtherException("Reservation with this id does not exist under this room or organization.");
         }
         return reservation.get();
     }

@@ -29,7 +29,7 @@ public class OrganizationRestController {
     public Organization readId(@PathVariable("id") int id) {
         Optional<Organization> organization = organizationDao.read(id);
         if (!organization.isPresent()) {
-            throw new OtherException("Organization with this id does not exist.");
+            throw new NotFoundException ("Organization with this id does not exist.");
         }
         return organization.get();
     }
