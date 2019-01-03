@@ -56,18 +56,20 @@ public class ReservationDao implements ReservationDaoInterface {
     }
 
     @Override
-    public Reservation update (Reservation reservation) {
+    public Reservation update (Reservation reservation, int roomId) {
         Optional<Reservation> reservationWithThisId = reservations.stream()
                 .filter(r ->r.getId() == reservation.getId())
                 .findAny();
         if (!reservationWithThisId.isPresent()){
             throw new NotFoundException(
-                    String.format("Reservation with id %d does not exist.", reservation.getId()));
+                    String.format("Reservation with id %d does not exist. So it can't be updated.", reservation.getId()));
         }
         List<Reservation> collidingReservations = reservations.stream()
                 .filter(r -> r.getRoomId() == reservation.getRoomId())
-                .filter(r -> r.getStartDate().getTime() >= reservation.getEndDate().getTime() ||
-                        r.getEndDate().getTime() <= reservation.getStartDate().getTime())
+                .filter(r -> (r.getStartDate().getTime() > reservation.getEndDate().getTime() &&
+                        r.getEndDate().getTime() < reservation.getStartDate().getTime()) ||
+                        (r.getStartDate().getTime() < reservation.getEndDate().getTime() &&
+                                r.getEndDate().getTime() > reservation.getStartDate().getTime()))
                 .collect(Collectors.toList());
         if (!collidingReservations.isEmpty()) {
             throw new AlreadyExistsException(

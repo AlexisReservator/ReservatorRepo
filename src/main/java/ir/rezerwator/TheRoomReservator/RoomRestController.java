@@ -68,11 +68,11 @@ public class RoomRestController {
         Optional<Organization> organization=organizationDao.read(idOrganization);
         if (!organization.isPresent()) {
             throw new NotFoundException(
-                    String.format("The room under non-existing organization doesn't exist."));
+                    String.format("The room under non-existing organization doesn't exist. So it can't be updated."));
         }
         Optional<Room> rooms=roomDao.read(id);
         if (rooms.isPresent() && rooms.get().getIdOrganization() != idOrganization) {
-            throw new OtherException("The room under this organization doesn't exist.");
+            throw new OtherException("The room under this organization doesn't exist. So it can't be updated.");
         }
         room.setId(id);
         return roomDao.update(room, idOrganization);
@@ -87,7 +87,7 @@ public class RoomRestController {
         }
         Optional<Room> room=roomDao.read(id);
         if (room.get().getIdOrganization() != idOrganization) {
-            throw new OtherException("The room under this organization doesn't exist.");
+            throw new OtherException("The room under this organization doesn't exist. So it can't be deleted.");
         }
         roomDao.delete(id);
         return new Message("The room was successfully deleted.");

@@ -57,7 +57,7 @@ public class RoomDao implements RoomDaoInterface {
                 .findAny();
         if (!roomWithThisId.isPresent()){
             throw new NotFoundException(
-                    String.format("Room with id %d does not exist.", room.getId()));
+                    String.format("Room with id %d does not exist. So it can't be updated.", room.getId()));
         }
         Optional<Room> existingRoomWithNewName = rooms.stream()
                 .filter(r -> r.getId() !=room.getId())
