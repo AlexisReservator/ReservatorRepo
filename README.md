@@ -33,7 +33,7 @@ Prerequirements:
 
 <h3>HOW TO RUN APPLICATION:</h3>
 6. Start java application using the following command: java -jar build/libs/TheRoomReservator-0.0.1-SNAPSHOT.jar
-7. Application starts at port 8080 in case of problems with port close already running process on this port
+<br>7. Application starts at port 8080 in case of problems with port close already running process on this port
 
 
 
