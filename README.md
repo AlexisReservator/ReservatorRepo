@@ -1,11 +1,17 @@
 -----Description This application has been designed as apprenticeship task. It launches REST service to record organizations, rooms at wanted organization and reservations booking under wanted room and organization. 
+
 It uses Spring Boot framework and is built with Gradle.
 
 Launching application creates endpoint for REST service at http://localhost:8080/organization/ At the start 2 organizations will be created to populate "database", all organizations are kept in app, there is no database at this point. 
+
 Using POST request with body in JSON format will result in creating new organization if the organization name is not colliding (with existing ones). 
+
 Using GET request will result in getting all recorded organizations in JSON format. 
+
 Using GET request with an ID (http://localhost:8080/organization/1) will result in getting details of single organization with that ID  if the organization is present.
+
 Using PUT request with body in JSON format will update already recorded organization, if the one  exists and if the organization name is not colliding. 
+
 Using DELETE request with an ID  (http://localhost:8080/organization/1)  will delete single organization with that ID (if it was present).
 
 Similar requests are respectfully made for room and reservation, with appropriate exceptions.
