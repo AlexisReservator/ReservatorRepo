@@ -34,16 +34,14 @@ public class ReservationRestController {
     public Reservation createReservation (@Valid @RequestBody Reservation reservation, @PathVariable("id") int id, @PathVariable("roomId") int roomId) {
         Optional<Room> room=roomDao.read(roomId);
         if (!room.isPresent()) {
-            throw new NotFoundException(
-                    String.format("The reservation can't be created in a non-existing room."));
+            throw new NotFoundException("The reservation can't be created in a non-existing room.");
         }
         if (reservation.getStartDate().getTime() > reservation.getEndDate().getTime()) {
             throw new InputDataException("Incorrect dates format. End date can't be earlier than start date.");
         }
         Optional<Organization> organization=organizationDao.read(id);
         if (!organization.isPresent()) {
-            throw new NotFoundException(
-                    String.format("The reservation can't be created in a non-existing organization."));
+            throw new NotFoundException("The reservation can't be created in a non-existing organization.");
         }
         return reservationDao.create(reservation, id, roomId);
     }
@@ -60,12 +58,10 @@ public class ReservationRestController {
             throw new NotFoundException("There is no reservation under non-existing room and non-existing organization.");
         }
         if (!organization.isPresent()) {
-            throw new NotFoundException(
-                    String.format("There is no reservation in a non-existing organization."));
+            throw new NotFoundException("There is no reservation in a non-existing organization.");
         }
         if (!room.isPresent()) {
-            throw new NotFoundException(
-                    String.format("There is no reservation in a non-existing room."));
+            throw new NotFoundException("There is no reservation in a non-existing room.");
         }
         return reservation.get();
     }
@@ -79,16 +75,13 @@ public class ReservationRestController {
             throw new NotFoundException("There is no reservation under non-existing room and non-existing organization.");
         }
         if (!organization.isPresent()) {
-            throw new NotFoundException(
-                    String.format("There is no reservation in a non-existing organization."));
+            throw new NotFoundException("There is no reservation in a non-existing organization.");
         }
         if (!room.isPresent()) {
-            throw new NotFoundException(
-                    String.format("There is no reservation in a non-existing room."));
+            throw new NotFoundException("There is no reservation in a non-existing room.");
         }
         if (reservations.isEmpty())
-            throw new NotFoundException(
-                    String.format("There is no reservations under this room."));
+            throw new NotFoundException("There is no reservations under this room.");
         return reservations;
     }
 
@@ -105,12 +98,10 @@ public class ReservationRestController {
             throw new NotFoundException("There is no reservation under non-existing room and non-existing organization. So it can't be updated.");
         }
         if (!organization.isPresent()) {
-            throw new NotFoundException(
-                    String.format("There is no reservation in a non-existing organization. So it can't be updated."));
+            throw new NotFoundException("There is no reservation in a non-existing organization. So it can't be updated.");
         }
         if (!room.isPresent()) {
-            throw new NotFoundException(
-                    String.format("There is no reservation in a non-existing room. So it can't be updated."));
+            throw new NotFoundException("There is no reservation in a non-existing room. So it can't be updated.");
         }
         reservation.setId(id);
         return reservationDao.update(reservation, roomId);
@@ -128,12 +119,10 @@ public class ReservationRestController {
             throw new NotFoundException("The reservation can't be deleted under non-existing room and non-existing organization.");
         }
         if (!organization.isPresent()) {
-            throw new NotFoundException(
-                    String.format("The reservation can't be deleted under non-existing organization."));
+            throw new NotFoundException("The reservation can't be deleted under non-existing organization.");
         }
         if (!room.isPresent()) {
-            throw new NotFoundException(
-                    String.format("The reservation can't be deleted under non-existing room."));
+            throw new NotFoundException("The reservation can't be deleted under non-existing room.");
         }
         reservationDao.delete(id);
         return new Message("The room was successfully deleted.");

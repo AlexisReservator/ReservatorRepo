@@ -12,24 +12,19 @@ public class Room {
     @Length(min=2, max=20)
     private String name;
     private int id;
-    @NotNull
     @Min(value=0)
     @Max(value=10)
     private int floor;
-    @NotNull
     private boolean availability;
-    @NotNull
     @Min(value=0)
     private int sittingSpot;
-    @NotNull
     @Min(value=0)
     private int standingSpot;
-    @NotNull
     @Min(value=0)
     private int lyingSpot;
-    @NotNull
     @Min(value=0)
     private int hangingSpot;
+    @Min(value=1)
     private int idOrganization;
 
     public Room() {

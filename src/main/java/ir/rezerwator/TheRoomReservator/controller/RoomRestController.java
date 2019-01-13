@@ -32,8 +32,7 @@ public class RoomRestController {
     public Room createRoom (@Valid @RequestBody Room room, @PathVariable("id") int idOrganization){
         Optional<Organization> organization=organizationDao.read(idOrganization);
         if (!organization.isPresent()) {
-            throw new NotFoundException(
-                    String.format("The room can't be created in a non-existing organization."));
+            throw new NotFoundException("The room can't be created in a non-existing organization.");
         }
         return roomDao.create(room, idOrganization);
     }
@@ -42,8 +41,7 @@ public class RoomRestController {
     public Room readId(@PathVariable("roomId") int id, @PathVariable("id") int idOrganization){
         Optional<Organization> organization=organizationDao.read(idOrganization);
         if (!organization.isPresent()) {
-            throw new NotFoundException(
-                    String.format("The room under non-existing organization doesn't exist."));
+            throw new NotFoundException("The room under non-existing organization doesn't exist.");
         }
         Optional<Room> room=roomDao.read(id);
         if (!room.isPresent()) {
@@ -59,8 +57,7 @@ public class RoomRestController {
     public List<Room> readAllById(@PathVariable("id") int idOrganization) {
         Optional<Organization> organization=organizationDao.read(idOrganization);
         if (!organization.isPresent()) {
-            throw new NotFoundException(
-                    String.format("There are no rooms under non-existing organization."));
+            throw new NotFoundException("There are no rooms under non-existing organization.");
         }
         List<Room> rooms=roomDao.readAll(idOrganization);
         if (rooms.isEmpty()) {
@@ -74,8 +71,7 @@ public class RoomRestController {
                             @Valid @RequestBody Room room){
         Optional<Organization> organization=organizationDao.read(idOrganization);
         if (!organization.isPresent()) {
-            throw new NotFoundException(
-                    String.format("The room under non-existing organization doesn't exist. So it can't be updated."));
+            throw new NotFoundException("The room under non-existing organization doesn't exist. So it can't be updated.");
         }
         Optional<Room> rooms=roomDao.read(id);
         if (rooms.isPresent() && rooms.get().getIdOrganization() != idOrganization) {
@@ -89,8 +85,7 @@ public class RoomRestController {
     public Message deleteRoom(@PathVariable("roomId") int id, @PathVariable("id") int idOrganization){
         Optional<Organization> organization=organizationDao.read(idOrganization);
         if (!organization.isPresent()) {
-            throw new NotFoundException(
-                    String.format("The room under non-existing organization can't be deleted."));
+            throw new NotFoundException("The room under non-existing organization can't be deleted.");
         }
         Optional<Room> room=roomDao.read(id);
         if (room.get().getIdOrganization() != idOrganization) {
