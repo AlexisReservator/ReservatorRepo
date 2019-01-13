@@ -1,6 +1,13 @@
-package ir.rezerwator.TheRoomReservator;
+package ir.rezerwator.TheRoomReservator.controller;
 
 
+import ir.rezerwator.TheRoomReservator.dao.OrganizationDaoInterface;
+import ir.rezerwator.TheRoomReservator.dao.RoomDao;
+import ir.rezerwator.TheRoomReservator.dto.Message;
+import ir.rezerwator.TheRoomReservator.dto.Organization;
+import ir.rezerwator.TheRoomReservator.dto.Room;
+import ir.rezerwator.TheRoomReservator.exception.exceptions.NotFoundException;
+import ir.rezerwator.TheRoomReservator.exception.exceptions.OtherException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,11 +19,11 @@ import java.util.Optional;
 @RestController
 public class RoomRestController {
 
-    private final RoomDaoInterface roomDao;
+    private final RoomDao roomDao;
     private final OrganizationDaoInterface organizationDao;
 
     @Autowired
-    public RoomRestController(RoomDaoInterface roomDao, OrganizationDaoInterface organizationDao){
+    public RoomRestController(RoomDao roomDao, OrganizationDaoInterface organizationDao){
         this.roomDao = roomDao;
         this.organizationDao = organizationDao;
     }

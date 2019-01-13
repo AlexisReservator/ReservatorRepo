@@ -1,4 +1,4 @@
-package ir.rezerwator.TheRoomReservator;
+package ir.rezerwator.TheRoomReservator.dto;
 
 import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;

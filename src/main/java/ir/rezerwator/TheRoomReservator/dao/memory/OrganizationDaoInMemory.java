@@ -1,5 +1,9 @@
-package ir.rezerwator.TheRoomReservator;
+package ir.rezerwator.TheRoomReservator.dao.memory;
 
+import ir.rezerwator.TheRoomReservator.dao.OrganizationDaoInterface;
+import ir.rezerwator.TheRoomReservator.dto.Organization;
+import ir.rezerwator.TheRoomReservator.exception.exceptions.AlreadyExistsException;
+import ir.rezerwator.TheRoomReservator.exception.exceptions.NotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -7,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class OrganizationDao implements OrganizationDaoInterface {
+class OrganizationDaoInMemory implements OrganizationDaoInterface {
 
     private List<Organization> organizations = new ArrayList<Organization>() {{
         add(new Organization("Skra Belchatow", 1));

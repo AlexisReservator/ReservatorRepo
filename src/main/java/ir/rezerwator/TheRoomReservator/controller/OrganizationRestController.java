@@ -1,6 +1,9 @@
-package ir.rezerwator.TheRoomReservator;
+package ir.rezerwator.TheRoomReservator.controller;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import ir.rezerwator.TheRoomReservator.dto.Message;
+import ir.rezerwator.TheRoomReservator.dao.OrganizationDaoInterface;
+import ir.rezerwator.TheRoomReservator.dto.Organization;
+import ir.rezerwator.TheRoomReservator.exception.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +32,7 @@ public class OrganizationRestController {
     public Organization readId(@PathVariable("id") int id) {
         Optional<Organization> organization = organizationDao.read(id);
         if (!organization.isPresent()) {
-            throw new NotFoundException ("Organization with this id does not exist.");
+            throw new NotFoundException("Organization with this id does not exist.");
         }
         return organization.get();
     }

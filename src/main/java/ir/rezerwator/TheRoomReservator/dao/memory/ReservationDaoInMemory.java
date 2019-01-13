@@ -1,5 +1,9 @@
-package ir.rezerwator.TheRoomReservator;
+package ir.rezerwator.TheRoomReservator.dao.memory;
 
+import ir.rezerwator.TheRoomReservator.exception.exceptions.AlreadyExistsException;
+import ir.rezerwator.TheRoomReservator.exception.exceptions.NotFoundException;
+import ir.rezerwator.TheRoomReservator.dto.Reservation;
+import ir.rezerwator.TheRoomReservator.dao.ReservationDaoInterface;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -11,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-public class ReservationDao implements ReservationDaoInterface {
+class ReservationDaoInMemory implements ReservationDaoInterface {
 
     private List<Reservation> reservations = new ArrayList<Reservation>() {{
         add(new Reservation(1, 1,"piesek", Date.from(Instant.parse("2019-01-04T15:00:00.000Z")),

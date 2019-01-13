@@ -1,4 +1,4 @@
-package ir.rezerwator.TheRoomReservator;
+package ir.rezerwator.TheRoomReservator.dto;
 
 public class ErrorDetails {
     private String errorMessage;

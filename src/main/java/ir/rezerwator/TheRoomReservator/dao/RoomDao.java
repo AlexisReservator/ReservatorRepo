@@ -1,9 +1,11 @@
-package ir.rezerwator.TheRoomReservator;
+package ir.rezerwator.TheRoomReservator.dao;
+
+import ir.rezerwator.TheRoomReservator.dto.Room;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface RoomDaoInterface {
+public interface RoomDao {
     Room create(Room room, int idOrganization);
     Optional<Room> read(int id);
     List<Room> readAll(int idOrganization);

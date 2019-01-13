@@ -1,4 +1,6 @@
-package ir.rezerwator.TheRoomReservator;
+package ir.rezerwator.TheRoomReservator.dao;
+
+import ir.rezerwator.TheRoomReservator.dto.Organization;
 
 import java.util.List;
 import java.util.Optional;

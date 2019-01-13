@@ -1,4 +1,4 @@
-package ir.rezerwator.TheRoomReservator;
+package ir.rezerwator.TheRoomReservator.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

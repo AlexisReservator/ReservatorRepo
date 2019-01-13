@@ -1,4 +1,4 @@
-package ir.rezerwator.TheRoomReservator;
+package ir.rezerwator.TheRoomReservator.exception.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
