@@ -1,7 +1,7 @@
 package ir.rezerwator.TheRoomReservator.controller;
 
-import ir.rezerwator.TheRoomReservator.dto.Message;
 import ir.rezerwator.TheRoomReservator.dao.OrganizationDaoInterface;
+import ir.rezerwator.TheRoomReservator.dto.Message;
 import ir.rezerwator.TheRoomReservator.dto.Organization;
 import ir.rezerwator.TheRoomReservator.exception.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

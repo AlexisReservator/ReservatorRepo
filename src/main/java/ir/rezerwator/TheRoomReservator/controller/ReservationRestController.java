@@ -7,9 +7,10 @@ import ir.rezerwator.TheRoomReservator.dto.Message;
 import ir.rezerwator.TheRoomReservator.dto.Organization;
 import ir.rezerwator.TheRoomReservator.dto.Reservation;
 import ir.rezerwator.TheRoomReservator.dto.Room;
+import ir.rezerwator.TheRoomReservator.exception.exceptions.InputDataException;
 import ir.rezerwator.TheRoomReservator.exception.exceptions.NotFoundException;
-import ir.rezerwator.TheRoomReservator.exception.exceptions.OtherException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -37,7 +38,7 @@ public class ReservationRestController {
                     String.format("The reservation can't be created in a non-existing room."));
         }
         if (reservation.getStartDate().getTime() > reservation.getEndDate().getTime()) {
-            throw new OtherException("Incorrect dates format. End date can't be earlier than start date.");
+            throw new InputDataException("Incorrect dates format. End date can't be earlier than start date.");
         }
         Optional<Organization> organization=organizationDao.read(id);
         if (!organization.isPresent()) {
@@ -53,10 +54,10 @@ public class ReservationRestController {
         Optional<Room> room=roomDao.read(roomId);
         Optional<Reservation> reservation = reservationDao.read(id);
         if (!room.isPresent() && !organization.isPresent() && !reservation.isPresent()) {
-            throw new OtherException("There is no such reservation, no such room and no such organization.");
+            throw new NotFoundException("There is no such reservation, no such room and no such organization.");
         }
         if (!room.isPresent() && !organization.isPresent()) {
-            throw new OtherException("There is no reservation under non-existing room and non-existing organization.");
+            throw new NotFoundException("There is no reservation under non-existing room and non-existing organization.");
         }
         if (!organization.isPresent()) {
             throw new NotFoundException(
@@ -75,7 +76,7 @@ public class ReservationRestController {
         Optional<Organization> organization=organizationDao.read(idOrganization);
         Optional<Room> room=roomDao.read(roomId);
         if (!room.isPresent() && !organization.isPresent()) {
-            throw new OtherException("There is no reservation under non-existing room and non-existing organization.");
+            throw new NotFoundException("There is no reservation under non-existing room and non-existing organization.");
         }
         if (!organization.isPresent()) {
             throw new NotFoundException(
@@ -98,10 +99,10 @@ public class ReservationRestController {
         Optional<Room> room=roomDao.read(roomId);
         Optional<Reservation> reservations = reservationDao.read(id);
         if (!room.isPresent() && !organization.isPresent() && !reservations.isPresent()) {
-            throw new OtherException("There is no such reservation, no such room and no such organization. So it can't be updated.");
+            throw new NotFoundException("There is no such reservation, no such room and no such organization. So it can't be updated.");
         }
         if (!room.isPresent() && !organization.isPresent()) {
-            throw new OtherException("There is no reservation under non-existing room and non-existing organization. So it can't be updated.");
+            throw new NotFoundException("There is no reservation under non-existing room and non-existing organization. So it can't be updated.");
         }
         if (!organization.isPresent()) {
             throw new NotFoundException(
@@ -121,10 +122,10 @@ public class ReservationRestController {
         Optional<Room> room=roomDao.read(roomId);
         Optional<Reservation> reservation = reservationDao.read(id);
         if (!room.isPresent() && !organization.isPresent() && !reservation.isPresent()) {
-            throw new OtherException("The non-existing reservation at non-existing room and non-existing organization can't be deleted.");
+            throw new NotFoundException("The non-existing reservation at non-existing room and non-existing organization can't be deleted.");
         }
         if (!room.isPresent() && !organization.isPresent()) {
-            throw new OtherException("The reservation can't be deleted under non-existing room and non-existing organization.");
+            throw new NotFoundException("The reservation can't be deleted under non-existing room and non-existing organization.");
         }
         if (!organization.isPresent()) {
             throw new NotFoundException(

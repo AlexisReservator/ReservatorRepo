@@ -6,8 +6,8 @@ import ir.rezerwator.TheRoomReservator.dao.RoomDao;
 import ir.rezerwator.TheRoomReservator.dto.Message;
 import ir.rezerwator.TheRoomReservator.dto.Organization;
 import ir.rezerwator.TheRoomReservator.dto.Room;
+import ir.rezerwator.TheRoomReservator.exception.exceptions.InputDataException;
 import ir.rezerwator.TheRoomReservator.exception.exceptions.NotFoundException;
-import ir.rezerwator.TheRoomReservator.exception.exceptions.OtherException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,7 +50,7 @@ public class RoomRestController {
             throw new NotFoundException("Room with this id does not exist.");
         }
         if (room.get().getIdOrganization() != idOrganization) {
-            throw new OtherException("The room under this organization doesn't exist.");
+            throw new InputDataException("The room under this organization doesn't exist.");
         }
         return room.get();
     }
@@ -64,7 +64,7 @@ public class RoomRestController {
         }
         List<Room> rooms=roomDao.readAll(idOrganization);
         if (rooms.isEmpty()) {
-            throw new OtherException("There are no rooms under this organization.");
+            throw new InputDataException("There are no rooms under this organization.");
         }
         return rooms;
     }
@@ -79,7 +79,7 @@ public class RoomRestController {
         }
         Optional<Room> rooms=roomDao.read(id);
         if (rooms.isPresent() && rooms.get().getIdOrganization() != idOrganization) {
-            throw new OtherException("The room under this organization doesn't exist. So it can't be updated.");
+            throw new InputDataException("The room under this organization doesn't exist. So it can't be updated.");
         }
         room.setId(id);
         return roomDao.update(room, idOrganization);
@@ -94,7 +94,7 @@ public class RoomRestController {
         }
         Optional<Room> room=roomDao.read(id);
         if (room.get().getIdOrganization() != idOrganization) {
-            throw new OtherException("The room under this organization doesn't exist. So it can't be deleted.");
+            throw new InputDataException("The room under this organization doesn't exist. So it can't be deleted.");
         }
         roomDao.delete(id);
         return new Message("The room was successfully deleted.");
