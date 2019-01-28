@@ -1,53 +1,68 @@
-package ir.rezerwator.TheRoomReservator.dto;
+package ir.rezerwator.TheRoomReservator.model;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import java.util.Optional;
+@Entity
+@Table(name = "room")
+public class RoomEntity {
 
-import static java.lang.Integer.sum;
-
-public class Room {
-
+    @Id
+    @Column(name = "id")
+    @GenericGenerator(name = "room_sequence", strategy = "enhanced-table", parameters = {
+            @org.hibernate.annotations.Parameter(name = "table_name", value = "room_sequence")
+    })
+    @GeneratedValue(generator = "table", strategy=GenerationType.TABLE)
     private Integer id;
 
     @NotBlank(message = "Room name can't be blanked or null.")
     @Length(min=2, max=20, message = "Room name must consist of 2 or more and less or equal to 20 signs.")
+    @Column(name = "name")
     private String name;
 
     @NotNull(message = "The room floor number can't be null.")
     @Range(min=0, max=10, message = "The room floor number must be equal or bigger than 0 and equal or smaller than 10.")
+    @Column(name = "floor")
     private Integer floor;
 
     @NotNull(message = "If the room is available sign it as true, if not sign it as false.")
+    @Column(name = "availability")
     private Boolean availability;
 
     @NotNull(message = "The room sitting spots number can't be null.")
     @Min(value=0)
+    @Column(name = "sittingSpot")
     private Integer sittingSpot;
 
     @NotNull(message = "The room standing spots number can't be null.")
     @Min(value=0)
+    @Column(name = "standingSpot")
     private Integer standingSpot;
 
     @Min(value=0)
+    @Column(name = "lyingSpot")
     private Integer lyingSpot;
 
     @Min(value=0)
+    @Column(name = "hangingSpot")
     private Integer hangingSpot;
 
     @Min(value=1)
+    @Column(name = "idOrganization")
     private Integer idOrganization;
 
-    public Room() {
+    public RoomEntity(){
+
     }
 
-    public Room(Integer id, String name, Integer floor, Boolean availability,
-                Integer sittingSpot, Integer standingSpot, Integer lyingSpot, Integer hangingSpot, Integer idOrganization){
+    public RoomEntity(Integer id, String name, Integer floor, Boolean availability,
+                      Integer sittingSpot, Integer standingSpot, Integer lyingSpot, Integer hangingSpot, Integer idOrganization){
         this.id=id;
         this.name=name;
         this.floor=floor;
@@ -59,20 +74,20 @@ public class Room {
         this.idOrganization=idOrganization;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getFloor() {
@@ -123,11 +138,6 @@ public class Room {
         this.hangingSpot = hangingSpot;
     }
 
-    public int getAllSpot(){
-
-        return sittingSpot + standingSpot + Optional.ofNullable(hangingSpot).orElse(0) + Optional.ofNullable(lyingSpot).orElse(0);
-    }
-
     public Integer getIdOrganization() {
         return idOrganization;
     }
@@ -136,3 +146,4 @@ public class Room {
         this.idOrganization = idOrganization;
     }
 }
+

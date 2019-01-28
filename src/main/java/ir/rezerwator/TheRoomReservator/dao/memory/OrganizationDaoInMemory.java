@@ -1,6 +1,5 @@
 package ir.rezerwator.TheRoomReservator.dao.memory;
 
-import ir.rezerwator.TheRoomReservator.dao.OrganizationDaoInterface;
 import ir.rezerwator.TheRoomReservator.dto.Organization;
 import ir.rezerwator.TheRoomReservator.exception.exceptions.AlreadyExistsException;
 import ir.rezerwator.TheRoomReservator.exception.exceptions.NotFoundException;
@@ -11,15 +10,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-class OrganizationDaoInMemory implements OrganizationDaoInterface {
+class OrganizationDaoInMemory {
 
     private List<Organization> organizations = new ArrayList<Organization>() {{
-        add(new Organization("Skra Belchatow", 1));
-        add(new Organization("Stocznia Szczecin", 2));
+        add(new Organization( 1, "Skra Belchatow"));
+        add(new Organization( 2, "Stocznia Szczecin"));
     }};
     private int currentId = 3;
 
-    @Override
     public Organization create(Organization newOrganization) {
         Optional<Organization> organization = organizations.stream()
                 .filter(o -> o.getName().equals(newOrganization.getName()))
@@ -34,19 +32,17 @@ class OrganizationDaoInMemory implements OrganizationDaoInterface {
         return newOrganization;
     }
 
-    @Override
     public Optional<Organization> read(int id) {
         return organizations.stream()
                 .filter(organization -> organization.getId() == id)
                 .findFirst();
     }
 
-    @Override
     public List<Organization> readAll() {
         return organizations;
     }
 
-    @Override
+
     public Organization update (Organization organization){
         Optional<Organization> organizationWithThisId = organizations.stream()
                 .filter(o -> o.getId() == organization.getId())
@@ -68,7 +64,7 @@ class OrganizationDaoInMemory implements OrganizationDaoInterface {
         return organizationWithThisId.get();
     }
 
-    @Override
+
     public void delete(int id){
         Optional<Organization> organizationWithThisId = organizations.stream()
                 .filter(o -> o.getId() == id)

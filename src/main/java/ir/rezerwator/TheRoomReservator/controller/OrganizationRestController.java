@@ -1,57 +1,57 @@
 package ir.rezerwator.TheRoomReservator.controller;
 
-import ir.rezerwator.TheRoomReservator.dao.OrganizationDaoInterface;
+
 import ir.rezerwator.TheRoomReservator.dto.Message;
 import ir.rezerwator.TheRoomReservator.dto.Organization;
-import ir.rezerwator.TheRoomReservator.exception.exceptions.NotFoundException;
+import ir.rezerwator.TheRoomReservator.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
-@RequestMapping ("/organization")
+@RequestMapping ("/organizations")
 @RestController
 public class OrganizationRestController {
 
-    private final OrganizationDaoInterface organizationDao;
+    private final OrganizationService organizationService;
 
     @Autowired
-    public OrganizationRestController(OrganizationDaoInterface organizationDao) {
-        this.organizationDao = organizationDao;
+    public OrganizationRestController(OrganizationService organizationService){
+        this.organizationService = organizationService;
     }
 
-
     @PostMapping
-    public Organization createOrganization (@Valid @RequestBody Organization organization){
-        return organizationDao.create(organization);
+    public Organization create(@Valid @RequestBody Organization organization){
+       return organizationService.create(organization);
     }
 
     @GetMapping("/{id}")
-    public Organization readId(@PathVariable("id") int id) {
-        Optional<Organization> organization = organizationDao.read(id);
-        if (!organization.isPresent()) {
-            throw new NotFoundException("Organization with this id does not exist.");
-        }
-        return organization.get();
+    public Organization readById(@PathVariable("id") int id) {
+        return organizationService.readById(id);
     }
 
     @GetMapping()
     public List<Organization> readAll() {
-        List<Organization> organizations = organizationDao.readAll();
-        return organizations;
+        return organizationService.readAll();
     }
 
     @PutMapping("/{id}")
-    public Organization updateName (@PathVariable("id") int id, @Valid @RequestBody Organization organization){
-        organization.setId(id);
-        return organizationDao.update(organization);
+    public Organization update(@PathVariable("id") int id, @Valid @RequestBody Organization organization){
+        return organizationService.update(organization, id);
     }
 
+
     @DeleteMapping("/{id}")
-    public Message deleteOrganization(@PathVariable("id") int id){
-        organizationDao.delete(id);
+    public Message delete(@PathVariable("id") int id, Organization organization){
+        organizationService.delete(organization);
         return new Message("The organization was successfully deleted.");
     }
 }
+
+
+
+
+
+
+

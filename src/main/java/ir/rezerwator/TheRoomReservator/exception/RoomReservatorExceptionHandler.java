@@ -2,6 +2,7 @@ package ir.rezerwator.TheRoomReservator.exception;
 
 import ir.rezerwator.TheRoomReservator.dto.ErrorDetails;
 import ir.rezerwator.TheRoomReservator.exception.exceptions.AlreadyExistsException;
+import ir.rezerwator.TheRoomReservator.exception.exceptions.CollidingReservationException;
 import ir.rezerwator.TheRoomReservator.exception.exceptions.InputDataException;
 import ir.rezerwator.TheRoomReservator.exception.exceptions.NotFoundException;
 import org.springframework.http.HttpHeaders;
@@ -22,7 +23,13 @@ public class RoomReservatorExceptionHandler extends ResponseEntityExceptionHandl
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler({AlreadyExistsException.class, InputDataException.class})
+    @ExceptionHandler({CollidingReservationException.class, AlreadyExistsException.class})
+    final ResponseEntity<ErrorDetails> handleCollidingReservationException(RuntimeException ex) {
+        ErrorDetails errorDetails = new ErrorDetails(ex.getMessage());
+        return new ResponseEntity<>(errorDetails, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler({InputDataException.class})
     final ResponseEntity<ErrorDetails> handleBadRequestExceptions(RuntimeException ex) {
         ErrorDetails errorDetails = new ErrorDetails(ex.getMessage());
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
