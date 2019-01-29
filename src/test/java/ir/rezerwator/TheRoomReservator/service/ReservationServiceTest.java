@@ -155,49 +155,4 @@ public class ReservationServiceTest {
         verify(reservationDaoInterface).readById(3);
     }
 
-//    @Test
-//    public void readByIdShouldThrowNotFoundExceptionWhenReservationDoesNotExistUnderChosenRoom(){
-//        NotFoundException notFoundException = new NotFoundException("There is no reservation with this id under this room.");
-//        expectedException.expect(NotFoundException.class);
-//        expectedException.expectMessage(notFoundException.getMessage());
-//
-//
-//
-//        reservationService.readById(3, 1,2);
-//    }
-//
-//
-//    @Test
-//    public void readByIdShouldReturnExistingReservationWhenItExistsUnderChosenRoomAndOrganization(){
-//
-//        Reservation result = reservationService.readById(3, 1, 2);
-//
-//    }
-
-//    @Test
-//    public void readAllShouldThrowNotFoundExceptionWhenThereIsAnyReservationUnderChosenRoom(){
-//        expectedException.expect(NotFoundException.class);
-//        expectedException.expectMessage("There is no reservation under this room.");
-//
-//
-//
-//        reservationService.readAll(1, 2);
-//    }
-//
-//    @Test
-//    public void readAllShouldReturnListOfReservationsExistingUnderChosenRoomAndOrganization(){
-//
-//    }
-//
-//    @Test
-//    public void updateShouldReturnUpdatedReservationWhenInputDataIsCorrect(){
-//
-//    }
-//
-//    @Test
-//    public void deleteShouldDeleteReservationWhenInputDataIsCorrect(){
-//
-//    }
-
-
 }
