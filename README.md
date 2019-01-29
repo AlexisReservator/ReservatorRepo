@@ -1,6 +1,6 @@
-<h2>RESERVATION GET:</h2>
+<h2>Creation of reservation</h2>
 
-<h3>CREATE ORGANIZATION:</h3>
+<h3>Create organization</h3>
 curl -X POST http://localhost:8080/organizations/ -H 'Content-Type: application/json' -d '{"name": "Organizacja1"}'
 
 CREATE ROOM:
@@ -14,7 +14,7 @@ curl -X POST http://localhost:8080/organizations/1/rooms/1/reservations -H 'Cont
 "endDate": "2019-02-05 15:00"
 }'
 
-GET RESERVATION:
+<h2>Obtaining reservation</h2>
 curl -X GET http://localhost:8080/organizations/1/rooms/1/reservations/1
 
 
